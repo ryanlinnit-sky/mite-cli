@@ -2,7 +2,9 @@
 
 ## Installation
 
-...
+```bash
+pip install mite-cli
+```
 
 ## Create new mite project
 

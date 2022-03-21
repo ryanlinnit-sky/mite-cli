@@ -1,3 +1,4 @@
 docopt
 black
 flake8
+GitPython

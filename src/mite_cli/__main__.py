@@ -14,6 +14,8 @@ import logging
 
 from docopt import docopt
 
+from .new_project import new_project
+
 logger = logging.getLogger(__name__)
 
 
@@ -28,6 +30,8 @@ def setup_logging(opts):
 def main():
     opts = docopt(__doc__)
     setup_logging(opts)
+    if opts["new"]:
+        new_project(opts["<project_dir>"])
 
 
 if __name__ == "__main__":
