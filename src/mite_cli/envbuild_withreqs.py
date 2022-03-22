@@ -1,5 +1,4 @@
 import logging
-import os
 import subprocess
 import venv
 
@@ -19,8 +18,10 @@ class EnvBuilderWithReqs(venv.EnvBuilder):
             "-m",
             "pip",
             "install",
-            "-r",
-            os.path.join(self.project_dir, "requirements.txt"),
+            "-e",
+            ".",
         ]
-        pip_install_proc = subprocess.run(pip_install_requirements, capture_output=True)
+        pip_install_proc = subprocess.run(
+            pip_install_requirements, cwd=self.project_dir, capture_output=True
+        )
         logger.debug(pip_install_proc.stdout.decode("utf-8"))

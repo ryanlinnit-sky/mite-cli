@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 def new_project(project_dir: str, create_venv: bool) -> None:
     if os.path.isdir(project_dir):
         logger.error("Directory already exists, please choose a new directory path")
-        return
+        return False
 
     project_name = pathlib.Path(project_dir).name
 
