@@ -5,10 +5,12 @@ from shutil import rmtree
 
 from git import Repo
 
+from .envbuild_withreqs import EnvBuilderWithReqs
+
 logger = logging.getLogger(__name__)
 
 
-def new_project(project_dir: str) -> None:
+def new_project(project_dir: str, create_venv: bool) -> None:
     if os.path.isdir(project_dir):
         logger.error("Directory already exists, please choose a new directory path")
         return
@@ -25,6 +27,9 @@ def new_project(project_dir: str) -> None:
     r.index.add(["*", ".*"])
     r.index.commit("initial commit")
 
+    if create_venv:
+        new_venv(project_name, project_dir)
+
 
 def write_setup(setup_cfg_filepath: str, project_name: str) -> None:
     with open(setup_cfg_filepath, "r") as fp:
@@ -36,3 +41,22 @@ def write_setup(setup_cfg_filepath: str, project_name: str) -> None:
 
     with open(setup_cfg_filepath, "w") as fp:
         fp.writelines(setup_cfg)
+
+
+def new_venv(project_name: str, project_dir: str):
+    new_venv = EnvBuilderWithReqs(
+        system_site_packages=False,
+        clear=False,
+        symlinks=False,
+        upgrade=False,
+        with_pip=True,
+        prompt=None,
+        project_dir=project_dir,
+    )
+
+    venv_dir = os.path.join(pathlib.Path.home(), ".virtualenvs", project_name)
+    new_venv.create(venv_dir)
+
+    logging.info(
+        f"New virtual environment created. Activate with the command: source {venv_dir}/bin/activate"
+    )
