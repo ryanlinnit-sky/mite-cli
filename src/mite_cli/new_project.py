@@ -11,7 +11,7 @@ from .envbuild_withreqs import EnvBuilderWithReqs
 logger = logging.getLogger(__name__)
 
 
-def new_project(project_dir: str, create_venv: bool) -> None:
+def new_project(project_dir: str, dont_create_venv: bool) -> None:
     if os.path.isdir(project_dir):
         logger.error("Directory already exists, please choose a new directory path")
         return False
@@ -29,7 +29,7 @@ def new_project(project_dir: str, create_venv: bool) -> None:
     r.index.add(["*", ".*"])
     r.index.commit("initial commit")
 
-    if create_venv:
+    if not dont_create_venv:
         new_venv(project_name, project_dir)
 
 

@@ -7,7 +7,7 @@ Usage:
 
 Options:
     --log-level=LEVEL       Set logger level: DEBUG, INFO, WARNING, ERROR, CRITICAL [default: INFO]
-    -e --createvenv         Create a python virtual environment
+    -n --novenv             Don't create a python virtual environment
 """  # noqa: E501
 
 import logging
@@ -31,7 +31,7 @@ def main():
     opts = docopt(__doc__)
     setup_logging(opts)
     if opts["new"]:
-        new_project(opts["<project_dir>"], opts["--createvenv"])
+        new_project(opts["<project_dir>"], opts["--novenv"])
 
 
 if __name__ == "__main__":
