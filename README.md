@@ -35,3 +35,14 @@ To run your first test, with the virtual environment activated and from within y
 ```bash
 ./run_test.sh
 ```
+
+### Installing dependancies
+
+Fedora
+```bash
+sudo dnf install libcurl-devel
+```
+Ubuntu
+```bash
+sudo apt install libcurl4 libcurl4-openssl-dev
+```
